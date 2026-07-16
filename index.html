@@ -961,6 +961,26 @@
       ])
     ]);
 
+    var bankTotal = QUESTIONS.length + SIGNS.length;
+    var bankAnswered = Object.keys(store.stats).filter(function(id){
+      return QUESTION_INDEX[id] || SIGN_INDEX[id.replace(/^sign-/,'')];
+    }).length;
+    var bankPct = bankTotal>0 ? Math.round(100*bankAnswered/bankTotal) : 0;
+
+    var bankWrap = el('div',{class:'history-wrap'});
+    bankWrap.appendChild(el('h3',{style:'font-size:16px; text-transform:uppercase; letter-spacing:.04em; margin:8px 0 4px;'},['Question Bank']));
+    var bankTable = el('table',{class:'history coverage'});
+    bankTable.appendChild(el('thead',{},[el('tr',{},[
+      el('th',{},['Total Questions In Bank']), el('th',{},['Answered By You']), el('th',{},['Remaining']), el('th',{},['% Complete'])
+    ])]));
+    bankTable.appendChild(el('tbody',{},[el('tr',{},[
+      el('td',{},[String(bankTotal)]),
+      el('td',{},[String(bankAnswered)]),
+      el('td',{},[String(bankTotal-bankAnswered)]),
+      el('td',{},[bankPct+'%'])
+    ])]));
+    bankWrap.appendChild(bankTable);
+
     var disclaimer = el('div',{class:'disclaimer'},[
       el('p',{},[el('strong',{},['This is independent study material, not an official Missouri Department of Revenue product.']),
         ' Questions are written to match the facts and figures in the official Missouri Driver Guide (rev. August 2025), but the guide itself can be updated — always confirm current requirements at dor.mo.gov before your exam.'])
@@ -968,6 +988,7 @@
 
     app.appendChild(hero);
     app.appendChild(cards);
+    app.appendChild(bankWrap);
     app.appendChild(disclaimer);
   }
 
