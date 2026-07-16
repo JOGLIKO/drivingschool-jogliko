@@ -284,7 +284,8 @@
     font-size:11px; color:var(--ink-soft); padding:8px 10px; border-bottom:1.5px solid var(--hairline-strong);
   }
   table.history td{padding:9px 10px; border-bottom:1px solid var(--hairline); font-variant-numeric:tabular-nums;}
-  table.history tr:last-child td{border-bottom:none;}
+  table.history tbody tr:last-child td{border-bottom:none;}
+  table.history tfoot td{border-top:1.5px solid var(--hairline-strong); border-bottom:none; padding-top:10px;}
   .empty-note{color:var(--ink-soft); font-size:14px; margin-top:18px;}
 
   .reset-row{margin-top:26px; display:flex; justify-content:flex-end;}
@@ -1020,6 +1021,40 @@
       el('div',{class:'stat-card'},[el('div',{class:'stat-label'},['Overall accuracy']), el('div',{class:'stat-value'},[overall.acc==null?'—':overall.acc+'%'])])
     ]);
     wrap.appendChild(stats);
+
+    var coverageWrap = el('div',{class:'history-wrap'});
+    coverageWrap.appendChild(el('h3',{style:'font-size:16px; text-transform:uppercase; letter-spacing:.04em; margin:26px 0 4px;'},['Ticket Coverage']));
+    coverageWrap.appendChild(el('p',{style:'color:var(--ink-soft); font-size:13.5px; margin-bottom:4px;'},['How many of the available tickets (questions) you have tried in each topic.']));
+    var covTable = el('table',{class:'history coverage'});
+    var covThead = el('thead',{},[el('tr',{},[
+      el('th',{},['Topic']), el('th',{},['Total Tickets']), el('th',{},['Completed']), el('th',{},['Remaining'])
+    ])]);
+    var covBody = el('tbody');
+    var grandTotal = 0, grandDone = 0;
+    CATEGORIES.concat([{id:'__signs',name:'Road Signs'}]).forEach(function(c){
+      var qids;
+      if(c.id==='__signs') qids = SIGNS.map(function(s){return 'sign-'+s.id;});
+      else qids = QUESTIONS.filter(function(q){return q.cat===c.id;}).map(function(q){return q.id;});
+      var done = qids.filter(function(id){ return !!store.stats[id]; }).length;
+      grandTotal += qids.length; grandDone += done;
+      covBody.appendChild(el('tr',{},[
+        el('td',{},[c.name]),
+        el('td',{},[String(qids.length)]),
+        el('td',{},[String(done)]),
+        el('td',{},[String(qids.length-done)])
+      ]));
+    });
+    covTable.appendChild(covThead);
+    covTable.appendChild(covBody);
+    var covFoot = el('tfoot',{},[el('tr',{},[
+      el('td',{},[el('strong',{},['Total'])]),
+      el('td',{},[el('strong',{},[String(grandTotal)]) ]),
+      el('td',{},[el('strong',{},[String(grandDone)]) ]),
+      el('td',{},[el('strong',{},[String(grandTotal-grandDone)]) ])
+    ])]);
+    covTable.appendChild(covFoot);
+    coverageWrap.appendChild(covTable);
+    wrap.appendChild(coverageWrap);
 
     var meterList = el('div',{class:'meter-list'});
     CATEGORIES.concat([{id:'__signs',name:'Road Signs'}]).forEach(function(c){
