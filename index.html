@@ -1,0 +1,1082 @@
+<title>Missouri Driving Theory Practice</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#eef0f1;
+    --bg-elevated:#ffffff;
+    --ink:#1c2024;
+    --ink-soft:#4b545c;
+    --hairline:#c9cfd3;
+    --hairline-strong:#aeb6bb;
+    --accent:#b9800f;
+    --accent-strong:#93660c;
+    --accent-ink:#1a1200;
+    --accent-wash:#f7e8c9;
+    --route:#23517f;
+    --route-ink:#ffffff;
+    --route-soft:#e6edf4;
+    --go:#256e3c;
+    --go-wash:#e2f0e6;
+    --stop:#a02419;
+    --stop-wash:#f7e3e1;
+    --shadow:0 1px 2px rgba(20,23,27,.08), 0 10px 26px -14px rgba(20,23,27,.30);
+    --radius-panel:10px;
+    --radius-chip:6px;
+    --font-display:'Arial Narrow','Segoe UI Semibold',Arial,sans-serif;
+    --font-body:'Segoe UI',system-ui,-apple-system,sans-serif;
+    --font-mono:'Consolas','SFMono-Regular',Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14171b;
+      --bg-elevated:#1c2126;
+      --ink:#eef1f3;
+      --ink-soft:#a7b0b7;
+      --hairline:#323a41;
+      --hairline-strong:#454f57;
+      --accent:#e3ab3c;
+      --accent-strong:#f0bd57;
+      --accent-ink:#1a1200;
+      --accent-wash:#3a2e10;
+      --route:#3f7fbf;
+      --route-ink:#08131f;
+      --route-soft:#1c2c3c;
+      --go:#4caf6c;
+      --go-wash:#153521;
+      --stop:#e0554c;
+      --stop-wash:#3a1a17;
+      --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171b; --bg-elevated:#1c2126; --ink:#eef1f3; --ink-soft:#a7b0b7;
+    --hairline:#323a41; --hairline-strong:#454f57; --accent:#e3ab3c; --accent-strong:#f0bd57;
+    --accent-ink:#1a1200; --accent-wash:#3a2e10; --route:#3f7fbf; --route-ink:#08131f;
+    --route-soft:#1c2c3c; --go:#4caf6c; --go-wash:#153521; --stop:#e0554c; --stop-wash:#3a1a17;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -16px rgba(0,0,0,.7);
+  }
+  :root[data-theme="light"]{
+    --bg:#eef0f1; --bg-elevated:#ffffff; --ink:#1c2024; --ink-soft:#4b545c;
+    --hairline:#c9cfd3; --hairline-strong:#aeb6bb; --accent:#b9800f; --accent-strong:#93660c;
+    --accent-ink:#1a1200; --accent-wash:#f7e8c9; --route:#23517f; --route-ink:#ffffff;
+    --route-soft:#e6edf4; --go:#256e3c; --go-wash:#e2f0e6; --stop:#a02419; --stop-wash:#f7e3e1;
+    --shadow:0 1px 2px rgba(20,23,27,.08), 0 10px 26px -14px rgba(20,23,27,.30);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--font-body);
+    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:var(--font-display); text-wrap:balance; margin:0; }
+  p{margin:0;}
+  button{font-family:var(--font-body);}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  :focus-visible{outline:3px solid var(--accent); outline-offset:2px;}
+
+  /* ---------- shell ---------- */
+  .app-header{
+    background:var(--route); color:var(--route-ink);
+    padding:14px 20px; display:flex; align-items:center; gap:14px;
+    box-shadow:var(--shadow); position:sticky; top:0; z-index:10;
+  }
+  .shield{
+    width:38px;height:38px;flex:none;
+    background:var(--route-ink); color:var(--route);
+    clip-path:polygon(50% 0%,100% 22%,100% 78%,50% 100%,0% 78%,0% 22%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:14px; letter-spacing:.02em;
+  }
+  .app-title{display:flex; flex-direction:column; gap:1px; min-width:0;}
+  .app-title .kicker{
+    font-size:11px; text-transform:uppercase; letter-spacing:.14em; opacity:.85;
+  }
+  .app-title h1{font-size:19px; letter-spacing:.02em; text-transform:uppercase;}
+  .back-btn{
+    margin-left:auto; background:transparent; border:1.5px solid rgba(255,255,255,.5);
+    color:var(--route-ink); padding:8px 14px; border-radius:var(--radius-chip);
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.06em;
+    font-size:13px; font-weight:700; cursor:pointer; flex:none;
+  }
+  [data-theme-toggle]{
+    margin-left:auto; background:transparent; border:1.5px solid rgba(255,255,255,.5);
+    color:var(--route-ink); padding:8px 10px; border-radius:var(--radius-chip);
+    font-size:13px; cursor:pointer; flex:none;
+  }
+  .header-actions{display:flex; align-items:center; gap:8px; margin-left:auto;}
+
+  main{max-width:900px; margin:0 auto; padding:28px 20px 64px;}
+
+  /* ---------- home ---------- */
+  .hero{padding:8px 2px 26px;}
+  .hero .eyebrow{
+    color:var(--accent-strong); font-size:12px; text-transform:uppercase;
+    letter-spacing:.16em; font-weight:700; font-family:var(--font-display);
+  }
+  .hero h2{font-size:clamp(28px,4vw,40px); margin-top:6px; letter-spacing:.01em;}
+  .hero p{color:var(--ink-soft); max-width:60ch; margin-top:10px; font-size:15px;}
+
+  .mode-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:20px;}
+  .mode-card{
+    text-align:left; border:none; border-radius:var(--radius-panel); padding:20px 18px;
+    cursor:pointer; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    display:flex; flex-direction:column; gap:8px; min-height:150px; color:var(--route-ink);
+    background:var(--route); transition:transform .15s ease;
+  }
+  .mode-card:hover{transform:translateY(-2px);}
+  .mode-card:nth-child(2){background:var(--go); color:#fff;}
+  .mode-card:nth-child(3){background:var(--accent); color:var(--accent-ink);}
+  .mode-card:nth-child(4){background:var(--bg-elevated); color:var(--ink); border:1.5px solid var(--hairline-strong);}
+  .mode-card .badge{
+    width:30px;height:30px; border-radius:50%; background:rgba(255,255,255,.22);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display);
+    font-weight:800; font-size:13px;
+  }
+  .mode-card:nth-child(4) .badge{background:var(--route-soft); color:var(--route);}
+  .mode-card h3{font-size:20px; text-transform:uppercase; letter-spacing:.02em; margin-top:auto;}
+  .mode-card .desc{font-size:13.5px; opacity:.92; line-height:1.4;}
+
+  .disclaimer{
+    margin-top:28px; border-left:3px solid var(--accent); background:var(--accent-wash);
+    padding:12px 14px; border-radius:0 var(--radius-chip) var(--radius-chip) 0;
+    font-size:13px; color:var(--ink-soft);
+  }
+  .disclaimer strong{color:var(--ink);}
+
+  /* ---------- lists / category picker ---------- */
+  .panel{
+    background:var(--bg-elevated); border:1px solid var(--hairline); border-radius:var(--radius-panel);
+    box-shadow:var(--shadow);
+  }
+  .cat-list{list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .cat-row{
+    display:flex; align-items:center; gap:14px; padding:16px 18px; background:var(--bg-elevated);
+    border:1px solid var(--hairline); border-radius:var(--radius-panel); cursor:pointer; width:100%;
+    text-align:left; color:var(--ink); box-shadow:var(--shadow);
+  }
+  .cat-row .swatch{width:8px; align-self:stretch; border-radius:4px; background:var(--route); flex:none;}
+  .cat-row .cat-name{font-family:var(--font-display); text-transform:uppercase; letter-spacing:.02em; font-size:16px;}
+  .cat-row .cat-count{margin-left:auto; font-family:var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:13px;}
+  .cat-row .cat-acc{font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:13px; color:var(--go); min-width:44px; text-align:right;}
+
+  /* ---------- quiz ---------- */
+  .quiz-wrap{max-width:640px; margin:0 auto;}
+  .progress-track{display:flex; gap:4px; margin-bottom:22px;}
+  .progress-seg{flex:1; height:5px; border-radius:3px; background:var(--hairline);}
+  .progress-seg.done{background:var(--route);}
+  .progress-seg.current{background:var(--accent);}
+
+  .quiz-meta{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .quiz-meta .qnum{font-family:var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:13px;}
+  .quiz-meta .qcat{
+    font-family:var(--font-display); text-transform:uppercase; font-size:11px; letter-spacing:.1em;
+    color:var(--route); background:var(--route-soft); padding:3px 9px; border-radius:20px;
+  }
+
+  .question-card{
+    background:var(--bg-elevated); border:1px solid var(--hairline); border-radius:var(--radius-panel);
+    box-shadow:var(--shadow); padding:26px 24px;
+  }
+  .question-card h2{font-size:21px; line-height:1.35; font-family:var(--font-body); font-weight:600; text-transform:none; letter-spacing:0;}
+  .sign-stage{display:flex; justify-content:center; padding:10px 0 18px;}
+  .sign-art{width:132px; height:132px; overflow:visible; filter:drop-shadow(0 3px 5px rgba(0,0,0,.18));}
+
+  .choices{list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .choice-btn{
+    width:100%; text-align:left; padding:13px 16px; border-radius:var(--radius-chip);
+    border:1.5px solid var(--hairline-strong); background:var(--bg-elevated); color:var(--ink);
+    font-size:15px; cursor:pointer; display:flex; gap:10px; align-items:flex-start;
+  }
+  .choice-btn .key{font-family:var(--font-mono); font-weight:700; color:var(--ink-soft); flex:none;}
+  .choice-btn .choice-text{flex:1;}
+  .choice-btn .mark{
+    flex:none; margin-left:auto; font-weight:900; font-size:17px; line-height:1; width:22px; text-align:center;
+  }
+  .choice-btn:hover:not(:disabled){border-color:var(--route);}
+  .choice-btn:disabled{cursor:default;}
+  .choice-btn.correct{background:var(--go-wash); border-color:var(--go); color:var(--ink);}
+  .choice-btn.correct .key{color:var(--go);}
+  .choice-btn.correct .mark{color:var(--go);}
+  .choice-btn.incorrect{background:var(--stop-wash); border-color:var(--stop); color:var(--ink);}
+  .choice-btn.incorrect .key{color:var(--stop);}
+  .choice-btn.incorrect .mark{color:var(--stop);}
+
+  .explain{
+    margin-top:18px; padding:14px 16px; border-radius:var(--radius-chip);
+    border-left:4px solid var(--route); background:var(--route-soft); font-size:14px; color:var(--ink);
+  }
+  .explain.go{border-color:var(--go); background:var(--go-wash);}
+  .explain.stop{border-color:var(--stop); background:var(--stop-wash);}
+  .explain .label{
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.08em; font-size:11.5px;
+    display:block; margin-bottom:4px; color:var(--ink-soft);
+  }
+
+  .quiz-actions{display:flex; justify-content:flex-end; margin-top:20px;}
+  .primary-btn{
+    background:var(--accent); color:var(--accent-ink); border:none; padding:12px 22px;
+    border-radius:var(--radius-chip); font-family:var(--font-display); text-transform:uppercase;
+    letter-spacing:.05em; font-weight:800; font-size:14px; cursor:pointer;
+  }
+  .primary-btn:hover{background:var(--accent-strong);}
+  .ghost-btn{
+    background:transparent; color:var(--route); border:1.5px solid var(--route); padding:10px 18px;
+    border-radius:var(--radius-chip); font-family:var(--font-display); text-transform:uppercase;
+    letter-spacing:.05em; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  /* ---------- results ---------- */
+  .results-card{text-align:center; padding:40px 24px;}
+  .score-big{font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:56px; font-weight:700; color:var(--route);}
+  .score-big small{font-size:22px; color:var(--ink-soft); font-weight:400;}
+  .results-actions{display:flex; gap:10px; justify-content:center; margin-top:22px; flex-wrap:wrap;}
+
+  /* ---------- sign learn/test tabs ---------- */
+  .tabbar{display:flex; gap:8px; margin-top:18px; border-bottom:1px solid var(--hairline);}
+  .tab-btn{
+    background:transparent; border:none; padding:10px 4px; margin-right:18px; cursor:pointer;
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.06em; font-size:14px;
+    color:var(--ink-soft); border-bottom:3px solid transparent;
+  }
+  .tab-btn.active{color:var(--ink); border-bottom-color:var(--accent);}
+
+  .sign-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; margin-top:18px;
+  }
+  .sign-tile{
+    background:var(--bg-elevated); border:1px solid var(--hairline); border-radius:var(--radius-panel);
+    padding:14px 10px; box-shadow:var(--shadow); cursor:pointer; text-align:left;
+  }
+  .sign-tile .sign-art{width:64px;height:64px; margin:0 auto;}
+  .sign-tile .sign-name{
+    font-family:var(--font-display); text-transform:uppercase; font-size:12.5px; text-align:center;
+    margin-top:8px; letter-spacing:.01em;
+  }
+  .sign-detail{margin-top:16px; padding:16px 18px;}
+  .sign-detail-head{display:flex; align-items:center; gap:14px;}
+  .sign-detail-head .sign-art{width:70px;height:70px;}
+  .sign-detail-head h3{font-size:18px; text-transform:uppercase; letter-spacing:.01em;}
+  .sign-detail-head .cat-pill{
+    font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);
+  }
+  .sign-detail p{margin-top:10px; font-size:14.5px; color:var(--ink-soft); max-width:56ch;}
+
+  /* ---------- progress view ---------- */
+  .stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:20px;}
+  .stat-card{
+    background:var(--bg-elevated); border:1px solid var(--hairline); border-radius:var(--radius-panel);
+    padding:16px 18px; box-shadow:var(--shadow);
+  }
+  .stat-card .stat-label{font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft);}
+  .stat-card .stat-value{font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:30px; margin-top:4px;}
+
+  .meter-list{margin-top:24px; display:flex; flex-direction:column; gap:14px;}
+  .meter-row .meter-top{display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:6px;}
+  .meter-row .meter-top .pct{font-family:var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink-soft);}
+  .meter-track{height:8px; background:var(--hairline); border-radius:4px; overflow:hidden;}
+  .meter-fill{height:100%; background:var(--accent); border-radius:4px; transition:width .4s ease;}
+
+  .history-wrap{margin-top:26px; overflow-x:auto;}
+  table.history{width:100%; border-collapse:collapse; font-size:13.5px;}
+  table.history th{
+    text-align:left; font-family:var(--font-display); text-transform:uppercase; letter-spacing:.06em;
+    font-size:11px; color:var(--ink-soft); padding:8px 10px; border-bottom:1.5px solid var(--hairline-strong);
+  }
+  table.history td{padding:9px 10px; border-bottom:1px solid var(--hairline); font-variant-numeric:tabular-nums;}
+  table.history tr:last-child td{border-bottom:none;}
+  .empty-note{color:var(--ink-soft); font-size:14px; margin-top:18px;}
+
+  .reset-row{margin-top:26px; display:flex; justify-content:flex-end;}
+  .danger-btn{
+    background:transparent; border:1.5px solid var(--stop); color:var(--stop); padding:9px 16px;
+    border-radius:var(--radius-chip); font-family:var(--font-display); text-transform:uppercase;
+    font-size:12.5px; letter-spacing:.05em; cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .mode-card, .meter-fill{transition:none;}
+  }
+
+  .app-footer{
+    max-width:900px; margin:0 auto; padding:0 20px 32px; text-align:center;
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.12em;
+    font-size:11.5px; color:var(--ink-soft);
+  }
+</style>
+
+<header class="app-header">
+  <div class="shield">MO</div>
+  <div class="app-title">
+    <span class="kicker">Practice permit study</span>
+    <h1 id="header-title">Missouri Driving Theory</h1>
+  </div>
+  <div class="header-actions">
+    <button class="back-btn" id="back-btn" hidden type="button">&larr; Home</button>
+    <button data-theme-toggle id="theme-toggle" type="button" title="Toggle color theme" aria-label="Toggle color theme">&#9788;</button>
+  </div>
+</header>
+
+<main id="app" aria-live="polite"></main>
+<footer class="app-footer">Made by Jogliko</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ theme toggle ============ */
+  var themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var cur = root.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+  });
+
+  /* ============ sign art helpers ============ */
+  var OCT = "29,6 71,6 94,29 94,71 71,94 29,94 6,71 6,29";
+  var TRI_DOWN = "6,16 94,16 50,92";
+  var DIA = "50,4 96,50 50,96 4,50";
+  var PEN = "50,4 95,38 78,94 22,94 5,38";
+
+  function octagon(fill,stroke){ return '<polygon points="'+OCT+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function triDown(fill,stroke){ return '<polygon points="'+TRI_DOWN+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function diamond(fill,stroke){ return '<polygon points="'+DIA+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function pentagon(fill,stroke){ return '<polygon points="'+PEN+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function circleShape(fill,stroke){ return '<circle cx="50" cy="50" r="45" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function rectShape(fill,stroke,rx){ return '<rect x="6" y="22" width="88" height="56" rx="'+(rx||6)+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="5"/>'; }
+  function txt(str,size,y,fill,weight){
+    return '<text x="50" y="'+(y||58)+'" font-size="'+(size||20)+'" font-weight="'+(weight||800)+
+      '" fill="'+fill+'" text-anchor="middle" font-family="Arial Narrow, Arial, sans-serif">'+str+'</text>';
+  }
+  function slash(){ return '<line x1="16" y1="16" x2="84" y2="84" stroke="#a02419" stroke-width="8" stroke-linecap="round"/>'; }
+  function svgWrap(inner){ return '<svg viewBox="0 0 100 100" class="sign-art" aria-hidden="true">'+inner+'</svg>'; }
+
+  var W='#ffffff', BLK='#111111', RED='#b3241c', YEL='#f3c623', YELGRN='#cbe11e', ORANGE='#f28c1e', BLUE='#1f4d7a', GRN='#0f6b3f';
+
+  var SIGNS = [
+    {id:'stop', name:'Stop', cat:'Regulatory', meaning:'Come to a complete stop and yield to cross traffic and pedestrians before proceeding. The eight-sided shape means "stop" even if the sign is faded or obscured.',
+      art: svgWrap(octagon(RED,W)+txt('STOP',22,58,W,900))},
+    {id:'yield', name:'Yield', cat:'Regulatory', meaning:'Slow down and be ready to stop if needed to let crossing or oncoming traffic and pedestrians go first.',
+      art: svgWrap(triDown(W,RED)+txt('YIELD',15,66,RED,900))},
+    {id:'do-not-enter', name:'Do Not Enter', cat:'Regulatory', meaning:'You may not enter the roadway from this direction — often the exit side of a one-way ramp or divided road.',
+      art: svgWrap(circleShape(RED,RED)+'<rect x="18" y="44" width="64" height="12" fill="'+W+'"/>')},
+    {id:'wrong-way', name:'Wrong Way', cat:'Regulatory', meaning:'You are heading against the flow of traffic. Stop safely, do not continue, and reverse direction when it is safe.',
+      art: svgWrap(rectShape(RED,W,4)+txt('WRONG',16,48,W,900)+txt('WAY',16,68,W,900))},
+    {id:'speed-limit', name:'Speed Limit', cat:'Regulatory', meaning:'Shows the maximum legal speed for that stretch of road under good conditions. Slower may be required in poor weather or traffic.',
+      art: svgWrap(rectShape(W,BLK,6)+txt('SPEED LIMIT',10,34,BLK,700)+txt('55',30,66,BLK,900))},
+    {id:'no-u-turn', name:'No U-Turn', cat:'Regulatory', meaning:'Making a U-turn is prohibited at this location.',
+      art: svgWrap(circleShape(W,RED)+'<path d="M30 60 v-14 a14 14 0 0 1 28 0 v10" fill="none" stroke="'+BLK+'" stroke-width="6"/><polygon points="66,44 66,60 78,52" fill="'+BLK+'"/>'+slash())},
+    {id:'no-left-turn', name:'No Left Turn', cat:'Regulatory', meaning:'Turning left is prohibited at this intersection or driveway.',
+      art: svgWrap(circleShape(W,RED)+'<line x1="26" y1="50" x2="70" y2="50" stroke="'+BLK+'" stroke-width="6"/><polygon points="26,50 40,40 40,60" fill="'+BLK+'"/>'+slash())},
+    {id:'no-right-on-red', name:'No Turn On Red', cat:'Regulatory', meaning:'Right turns are not permitted while the signal is red at this intersection.',
+      art: svgWrap(rectShape(W,BLK,6)+'<circle cx="50" cy="38" r="12" fill="'+RED+'"/><line x1="30" y1="38" x2="70" y2="38" stroke="'+BLK+'" stroke-width="4"/>'+txt('NO TURN ON RED',9,72,BLK,700))},
+    {id:'no-parking', name:'No Parking', cat:'Regulatory', meaning:'Stopping to park is not allowed in this zone.',
+      art: svgWrap(circleShape(W,RED)+txt('P',34,64,BLK,900)+slash())},
+    {id:'handicap', name:'Accessible Parking', cat:'Regulatory', meaning:'Parking reserved for vehicles displaying a valid disability permit or plate.',
+      art: svgWrap(rectShape(BLUE,BLUE,6)+'<circle cx="50" cy="42" r="8" fill="'+W+'"/><path d="M38 68 q12 -22 26 -4" fill="none" stroke="'+W+'" stroke-width="6"/><circle cx="64" cy="66" r="8" fill="none" stroke="'+W+'" stroke-width="5"/>')},
+    {id:'one-way', name:'One Way', cat:'Regulatory', meaning:'Traffic on this street travels only in the direction the arrow points.',
+      art: svgWrap(rectShape(BLK,BLK,6)+'<polygon points="20,50 62,32 62,44 82,44 82,56 62,56 62,68" fill="'+W+'"/>')},
+    {id:'railroad', name:'Railroad Crossing', cat:'Warning', meaning:'A railroad crossing is ahead. Slow down, look both ways, and be ready to stop if a train is approaching.',
+      art: svgWrap(circleShape(YEL,BLK)+txt('R',26,44,BLK,900)+txt('R',26,80,BLK,900)+'<line x1="20" y1="20" x2="80" y2="80" stroke="'+BLK+'" stroke-width="6"/><line x1="80" y1="20" x2="20" y2="80" stroke="'+BLK+'" stroke-width="6"/>')},
+    {id:'school-zone', name:'School Zone', cat:'Warning', meaning:'You are entering a school zone. Watch for children and obey the reduced school-zone speed limit when flashing.',
+      art: svgWrap(pentagon(YELGRN,BLK)+'<circle cx="42" cy="44" r="7" fill="'+BLK+'"/><line x1="42" y1="51" x2="42" y2="68" stroke="'+BLK+'" stroke-width="5"/><line x1="42" y1="56" x2="58" y2="50" stroke="'+BLK+'" stroke-width="5"/><line x1="42" y1="68" x2="34" y2="80" stroke="'+BLK+'" stroke-width="5"/><line x1="42" y1="68" x2="52" y2="80" stroke="'+BLK+'" stroke-width="5"/>')},
+    {id:'ped-crossing', name:'Pedestrian Crossing', cat:'Warning', meaning:'Pedestrians may be crossing ahead. Slow down and be prepared to stop and let them cross.',
+      art: svgWrap(diamond(YELGRN,BLK)+'<circle cx="50" cy="36" r="6" fill="'+BLK+'"/><line x1="50" y1="42" x2="50" y2="60" stroke="'+BLK+'" stroke-width="5"/><line x1="50" y1="46" x2="62" y2="40" stroke="'+BLK+'" stroke-width="5"/><line x1="50" y1="60" x2="42" y2="76" stroke="'+BLK+'" stroke-width="5"/><line x1="50" y1="60" x2="58" y2="76" stroke="'+BLK+'" stroke-width="5"/>')},
+    {id:'bike-route', name:'Bicycle Crossing', cat:'Warning', meaning:'Bicyclists may be crossing or entering the roadway ahead.',
+      art: svgWrap(diamond(YELGRN,BLK)+'<circle cx="36" cy="66" r="8" fill="none" stroke="'+BLK+'" stroke-width="4"/><circle cx="64" cy="66" r="8" fill="none" stroke="'+BLK+'" stroke-width="4"/><line x1="36" y1="66" x2="48" y2="44" stroke="'+BLK+'" stroke-width="4"/><line x1="48" y1="44" x2="64" y2="66" stroke="'+BLK+'" stroke-width="4"/><line x1="48" y1="44" x2="40" y2="44" stroke="'+BLK+'" stroke-width="4"/>')},
+    {id:'merge', name:'Merge', cat:'Warning', meaning:'Traffic from another roadway is merging into your lane ahead. Adjust speed and be ready to share the lane.',
+      art: svgWrap(diamond(YEL,BLK)+'<path d="M30 78 Q30 40 60 30" fill="none" stroke="'+BLK+'" stroke-width="6"/><polygon points="60,30 50,32 56,42" fill="'+BLK+'"/><line x1="66" y1="78" x2="66" y2="30" stroke="'+BLK+'" stroke-width="6"/>')},
+    {id:'curve', name:'Curve Ahead', cat:'Warning', meaning:'The road curves ahead in the direction shown. Reduce speed before entering the curve.',
+      art: svgWrap(diamond(YEL,BLK)+'<path d="M28 74 Q40 30 74 30" fill="none" stroke="'+BLK+'" stroke-width="6"/><polygon points="74,30 62,28 66,40" fill="'+BLK+'"/>')},
+    {id:'winding-road', name:'Winding Road', cat:'Warning', meaning:'A series of curves is ahead. Reduce speed for the full stretch, not just the first curve.',
+      art: svgWrap(diamond(YEL,BLK)+'<path d="M26 32 Q42 32 42 48 Q42 64 58 64 Q74 64 74 78" fill="none" stroke="'+BLK+'" stroke-width="6"/>')},
+    {id:'steep-grade', name:'Steep Grade', cat:'Warning', meaning:'A steep downhill grade is ahead. Downshift and check your brakes before descending.',
+      art: svgWrap(diamond(YEL,BLK)+'<path d="M22 70 L70 30 L70 70 Z" fill="none" stroke="'+BLK+'" stroke-width="6"/>'+txt('9%',18,58,BLK,800))},
+    {id:'deer-crossing', name:'Deer Crossing', cat:'Warning', meaning:'Animals may cross the road ahead, especially around dawn and dusk. Slow down and scan the shoulders.',
+      art: svgWrap(diamond(YEL,BLK)+'<polygon points="35,68 45,42 55,42 65,68" fill="none" stroke="'+BLK+'" stroke-width="5"/><line x1="45" y1="42" x2="38" y2="30" stroke="'+BLK+'" stroke-width="4"/><line x1="55" y1="42" x2="62" y2="30" stroke="'+BLK+'" stroke-width="4"/>')},
+    {id:'two-way', name:'Two-Way Traffic', cat:'Warning', meaning:'You are entering a two-way road. Oncoming traffic should be expected in the opposite lane.',
+      art: svgWrap(diamond(YEL,BLK)+'<line x1="50" y1="26" x2="50" y2="74" stroke="'+BLK+'" stroke-width="6"/><polygon points="50,26 44,36 56,36" fill="'+BLK+'"/><polygon points="50,74 44,64 56,64" fill="'+BLK+'"/>')},
+    {id:'no-passing', name:'No Passing Zone', cat:'Warning', meaning:'Passing other vehicles is not allowed on this section of road.',
+      art: svgWrap('<polygon points="6,50 78,20 78,80" fill="'+YEL+'" stroke="'+BLK+'" stroke-width="5"/>'+txt('NO',16,46,BLK,900)+txt('PASS',13,64,BLK,900))},
+    {id:'divided-hwy-ends', name:'Divided Highway Ends', cat:'Warning', meaning:'The divided highway ends ahead; the road becomes a single two-way roadway.',
+      art: svgWrap(diamond(YEL,BLK)+'<line x1="32" y1="30" x2="32" y2="70" stroke="'+BLK+'" stroke-width="5"/><line x1="68" y1="30" x2="68" y2="70" stroke="'+BLK+'" stroke-width="5"/><line x1="32" y1="70" x2="68" y2="70" stroke="'+BLK+'" stroke-width="5"/>')},
+    {id:'lane-ends', name:'Lane Ends, Merge Left', cat:'Warning', meaning:'The right lane ends ahead. Merge left before the lane closes.',
+      art: svgWrap(diamond(YEL,BLK)+'<line x1="30" y1="30" x2="30" y2="70" stroke="'+BLK+'" stroke-width="6"/><path d="M70 30 L30 70" fill="none" stroke="'+BLK+'" stroke-width="6"/>')},
+    {id:'signal-ahead', name:'Signal Ahead', cat:'Warning', meaning:'A traffic signal is ahead. Be prepared to slow down and stop.',
+      art: svgWrap(diamond(YEL,BLK)+'<rect x="42" y="28" width="16" height="42" rx="4" fill="'+BLK+'"/><circle cx="50" cy="37" r="4.5" fill="'+RED+'"/><circle cx="50" cy="49" r="4.5" fill="'+YEL+'"/><circle cx="50" cy="61" r="4.5" fill="'+GRN+'"/>')},
+    {id:'stop-ahead', name:'Stop Ahead', cat:'Warning', meaning:'A stop sign is ahead, possibly hidden from view. Begin slowing down now.',
+      art: svgWrap(diamond(YEL,BLK)+octagon(RED,W).replace('points="'+OCT+'"','points="38,32 62,32 74,44 74,68 62,80 38,80 26,68 26,44"').replace('stroke-width="5"','stroke-width="3"'))},
+    {id:'road-work', name:'Road Work Ahead', cat:'Construction', meaning:'A construction or maintenance zone is ahead. Reduce speed and watch for workers and equipment.',
+      art: svgWrap(diamond(ORANGE,BLK)+'<circle cx="40" cy="60" r="6" fill="'+BLK+'"/><line x1="40" y1="54" x2="40" y2="38" stroke="'+BLK+'" stroke-width="5"/><line x1="40" y1="44" x2="30" y2="38" stroke="'+BLK+'" stroke-width="5"/><line x1="40" y1="44" x2="52" y2="34" stroke="'+BLK+'" stroke-width="5"/><line x1="40" y1="54" x2="32" y2="70" stroke="'+BLK+'" stroke-width="5"/><line x1="40" y1="54" x2="50" y2="70" stroke="'+BLK+'" stroke-width="5"/>')},
+    {id:'flagger', name:'Flagger Ahead', cat:'Construction', meaning:'A worker holding a flag will direct traffic ahead. Follow their signals and be ready to stop.',
+      art: svgWrap(diamond(ORANGE,BLK)+'<circle cx="46" cy="42" r="6" fill="'+BLK+'"/><line x1="46" y1="48" x2="46" y2="66" stroke="'+BLK+'" stroke-width="5"/><line x1="46" y1="66" x2="38" y2="80" stroke="'+BLK+'" stroke-width="5"/><line x1="46" y1="66" x2="54" y2="80" stroke="'+BLK+'" stroke-width="5"/><line x1="46" y1="54" x2="62" y2="48" stroke="'+BLK+'" stroke-width="5"/><rect x="60" y="38" width="10" height="8" fill="'+RED+'"/>')},
+    {id:'interstate', name:'Interstate Marker', cat:'Guide', meaning:'Identifies the route number of an Interstate highway.',
+      art: svgWrap('<path d="M50 4 L94 16 V64 Q94 88 50 96 Q6 88 6 64 V16 Z" fill="'+BLUE+'" stroke="'+W+'" stroke-width="4"/>'+txt('INTER-',10,42,W,700)+txt('STATE',10,54,W,700)+txt('44',22,78,W,900))},
+    {id:'us-route', name:'US Route Marker', cat:'Guide', meaning:'Identifies the route number of a U.S. numbered highway.',
+      art: svgWrap('<path d="M8 10 H92 V60 L50 96 L8 60 Z" fill="'+W+'" stroke="'+BLK+'" stroke-width="4"/>'+txt('US',18,46,BLK,900)+txt('61',20,72,BLK,900))},
+    {id:'hospital', name:'Hospital', cat:'Guide', meaning:'A blue guide sign indicating hospital services are nearby.',
+      art: svgWrap(rectShape(BLUE,BLUE,6)+'<rect x="42" y="30" width="16" height="40" fill="'+W+'"/><rect x="30" y="42" width="40" height="16" fill="'+W+'"/>')},
+    {id:'rest-area', name:'Rest Area', cat:'Guide', meaning:'A blue guide sign indicating a rest area with facilities is ahead.',
+      art: svgWrap(rectShape(BLUE,BLUE,6)+'<line x1="30" y1="60" x2="70" y2="60" stroke="'+W+'" stroke-width="5"/><line x1="34" y1="60" x2="34" y2="70" stroke="'+W+'" stroke-width="5"/><line x1="66" y1="60" x2="66" y2="70" stroke="'+W+'" stroke-width="5"/><line x1="38" y1="46" x2="62" y2="46" stroke="'+W+'" stroke-width="5"/>')}
+  ];
+
+  var SIGN_INDEX = {};
+  SIGNS.forEach(function(s){ SIGN_INDEX[s.id]=s; });
+
+  /* ============ question bank ============ */
+  var CATEGORIES = [
+    {id:'signals', name:'Signals & Markings'},
+    {id:'row', name:'Right-of-Way'},
+    {id:'speed', name:'Speed & Following Distance'},
+    {id:'turning', name:'Turning, Passing & Lanes'},
+    {id:'parking', name:'Parking & Stopping'},
+    {id:'safety', name:'Missouri Safety Laws'},
+    {id:'sharing', name:'Sharing the Road'},
+    {id:'general', name:'General Rules'}
+  ];
+
+  function q(id,cat,text,choices,correct,explain){
+    return {id:id, cat:cat, text:text, choices:choices, correct:correct, explain:explain};
+  }
+
+  var QUESTIONS = [
+    q('sig1','signals','At a steady yellow traffic light, you should:',
+      ['Speed up to clear the intersection','Stop if you can do so safely; otherwise clear the intersection with caution','Always come to a complete stop immediately','Treat it the same as a green light'],1,
+      'A steady yellow means the signal is about to turn red. Stop if it is safe to do so; if you are too close to stop safely, continue through carefully.'),
+    q('sig2','signals','A flashing red traffic signal means the same as:',
+      ['A yield sign','A stop sign','A speed limit sign','A green light'],1,
+      'Treat a flashing red signal exactly like a stop sign: come to a complete stop, then proceed when it is safe.'),
+    q('sig3','signals','A flashing yellow signal means you should:',
+      ['Stop completely, then proceed','Slow down and proceed with caution','Ignore it and maintain speed','Turn around'],1,
+      'Flashing yellow is a caution signal — slow down, look for hazards, and proceed carefully; a full stop is not required.'),
+    q('sig4','signals','A solid yellow line on your side of the center line means:',
+      ['Passing is allowed when safe','Passing is not allowed','You may park along that line','The lane is ending'],1,
+      'A solid yellow line on your side prohibits passing. If the line on your side is dashed, passing is allowed when safe.'),
+    q('sig5','signals','White lines on the roadway separate:',
+      ['Traffic moving in opposite directions','Lanes of traffic moving in the same direction','Parking spaces only','Bike lanes only'],1,
+      'White lane lines separate traffic traveling the same direction. Yellow lines separate traffic moving in opposite directions.'),
+    q('sig6','signals','A diamond-shaped sign is used for:',
+      ['Regulatory rules like speed limits','Warning of a hazard or condition ahead','Guiding you to services','Marking a school zone only'],1,
+      'Diamond-shaped signs are warning signs — they alert you to hazards or changing road conditions ahead, usually in yellow or orange.'),
+    q('sig7','signals','An octagon (eight-sided) shape is reserved exclusively for:',
+      ['Yield signs','Stop signs','Railroad crossings','Speed limit signs'],1,
+      'The octagon shape is used only for stop signs, so drivers can recognize it by shape alone, even at night or when the sign is damaged.'),
+    q('sig8','signals','A round, black-and-white sign at a railroad crossing tells you to:',
+      ['Speed up to beat the train','Be prepared to yield to a train on the tracks','Ignore it if you don’t see a train','Only slow down if a light is flashing'],1,
+      'This is the railroad crossbuck sign — treat the crossing as a yield: slow down, look and listen, and be ready to stop for a train.'),
+
+    q('row1','row','At a four-way stop where two vehicles arrive at the same time, right-of-way goes to:',
+      ['The vehicle on the left','The vehicle on the right','Whichever vehicle is bigger','Whoever honks first'],1,
+      'When vehicles reach a four-way stop at the same time, the driver on the right has the right-of-way.'),
+    q('row2','row','At an uncontrolled intersection with no signs or signals, you should:',
+      ['Proceed without slowing','Yield to the vehicle already in the intersection or arriving first','Always let the car on your left go first','Honk and proceed'],1,
+      'Slow down and yield to any vehicle already in the intersection, or the one that arrives first; if it’s close, yield to the vehicle on your right.'),
+    q('row3','row','When entering a roadway from a driveway or parking lot, you must:',
+      ['Yield to pedestrians and traffic already on the road','Have the right-of-way over through traffic','Only yield to other cars, not pedestrians','Proceed if your turn signal is on'],0,
+      'Traffic already on the roadway, including pedestrians on the sidewalk, has the right-of-way over vehicles entering from a driveway or lot.'),
+    q('row4','row','A school bus ahead has stopped with red lights flashing and stop arm extended. On an undivided road you must:',
+      ['Stop in both directions until lights stop flashing','Only stop if you are behind the bus','Slow down but you may pass carefully','Stop only if children are visible'],0,
+      'On most roads (undivided), traffic in both directions must stop for a school bus with flashing red lights and an extended stop arm, and wait until it is withdrawn.'),
+    q('row5','row','You are approaching a roundabout. You should generally yield to:',
+      ['Traffic entering behind you','Traffic already circulating in the roundabout','No one — you always have the right-of-way','Only large vehicles'],1,
+      'Yield to traffic already inside the roundabout before entering, and always travel counterclockwise around the center island.'),
+    q('row6','row','An emergency vehicle approaches from behind with lights and siren active. You should:',
+      ['Speed up to get out of the way','Pull to the right edge of the road and stop until it passes','Stop immediately wherever you are','Pull to the left and stop'],1,
+      'Safely move to the right-hand edge of the roadway (clear of intersections) and stop until the emergency vehicle has passed.'),
+    q('row7','row','A funeral procession with headlights on is proceeding through a green light. Other drivers should:',
+      ['Cut into the procession if there is a gap','Let the procession continue as a unit without breaking it up','Pass the procession whenever possible','Ignore it since the light is green for everyone'],1,
+      'Do not drive between vehicles in a funeral procession; let it proceed as a unit even if the light changes.'),
+    q('row8','row','You are turning left and facing an oncoming vehicle going straight. Who has the right-of-way?',
+      ['The vehicle turning left','The oncoming vehicle going straight','Whoever is moving faster','Neither, both must stop'],1,
+      'A left-turning driver must yield to oncoming traffic that is going straight through the intersection.'),
+    q('row9','row','A pedestrian is crossing at a marked crosswalk with no signal. Drivers must:',
+      ['Yield the right-of-way to the pedestrian','Only stop if the pedestrian is elderly or a child','Proceed if traffic is light','Honk to hurry the pedestrian'],0,
+      'Drivers must yield to pedestrians who are in or about to enter a marked or unmarked crosswalk.'),
+    q('row10','row','Two vehicles reach a 4-way stop and one is going straight while the other, arriving from the opposite direction, is turning left. Who should go first?',
+      ['The vehicle turning left, always','The vehicle going straight has the right-of-way','They should both go at once','Whichever vehicle honks'],1,
+      'When arrival is simultaneous, the through-moving vehicle generally has the right-of-way over one turning left across its path.'),
+
+    q('spd1','speed','On a road with no posted speed limit sign in a Missouri business or residential area, you should generally assume the limit is around:',
+      ['15 mph','25–30 mph','55 mph','There is no limit'],1,
+      'Unposted business and residential streets commonly carry a default limit in the 25–30 mph range — always follow posted signs when present, and check the current Missouri Driver Guide for exact defaults.'),
+    q('spd2','speed','The "3-second rule" is used to judge:',
+      ['How long you can legally park','A safe following distance behind the vehicle ahead','How long a yellow light lasts','How long to signal before turning'],1,
+      'Pick a fixed point the vehicle ahead passes, then count seconds until you reach it. Three seconds or more (more in poor conditions) gives a safer following distance.'),
+    q('spd3','speed','In heavy rain or on wet roads, you should:',
+      ['Maintain your normal speed and following distance','Reduce speed and increase following distance','Only slow down if visibility drops below 100 feet','Drive faster to clear standing water quickly'],1,
+      'Wet roads reduce tire traction and increase stopping distance, so slow down and leave extra space behind the vehicle ahead.'),
+    q('spd4','speed','If your vehicle begins to hydroplane, you should:',
+      ['Brake hard immediately','Ease off the gas and steer straight until traction returns','Turn the wheel sharply to regain control','Accelerate through it'],1,
+      'Hydroplaning means your tires have lost contact with the road. Ease off the accelerator and keep the wheel straight until the tires regain grip — hard braking or sharp turns can cause a skid.'),
+    q('spd5','speed','Speed limits shown on signs represent the legal maximum:',
+      ['At all times, regardless of conditions','Only under ideal conditions — you must slow further in poor weather, traffic, or visibility','Only during daylight hours','Only for passenger cars, not trucks'],1,
+      'Posted limits assume good conditions. Rain, fog, snow, or heavy traffic may require driving well below the posted limit.'),
+    q('spd6','speed','Following too closely behind another vehicle is commonly known as:',
+      ['Drafting','Tailgating','Merging','Yielding'],1,
+      'Tailgating (following too closely) sharply reduces your reaction time and is a common cause of rear-end collisions.'),
+    q('spd7','speed','When driving at night, you should adjust your speed so that you can:',
+      ['Stop within the distance illuminated by your headlights','Always drive at the posted daytime limit','Match the speed of the vehicle ahead exactly','Use only your high beams to compensate'],0,
+      'At night your headlights limit how far ahead you can see hazards, so your speed should let you stop safely within that lit distance.'),
+    q('spd8','speed','In a designated work zone with posted reduced speed limits, fines for speeding are typically:',
+      ['Waived if no workers are present','Increased compared to normal fines','Not enforced on weekends','The same as any other roadway'],1,
+      'Most states, including Missouri, increase penalties for speeding in active work zones to help protect road crews.'),
+
+    q('turn1','turning','Before changing lanes, you should:',
+      ['Signal, check mirrors, and check your blind spot','Signal only','Speed up first, then signal','Just glance at your mirror'],0,
+      'Signal your intent, check your mirrors, and check the blind spot over your shoulder before moving into another lane.'),
+    q('turn2','turning','You should signal a turn or lane change at least:',
+      ['At the exact moment you turn the wheel','About 100 feet before the turn (more at higher speed)','Only if other cars are nearby','Only when turning left'],1,
+      'Signal well before you turn — roughly 100 feet in slower/city driving, and earlier at higher speeds — so other drivers have time to react.'),
+    q('turn3','turning','When passing another vehicle on a two-lane road, you should return to your lane:',
+      ['As soon as you can see the other vehicle’s front bumper in your mirror','Immediately after your front bumper passes theirs','Only after coming to a stop','Whenever you feel like it'],0,
+      'Wait until you can see the passed vehicle’s front in your rearview mirror before signaling and safely returning to your lane.'),
+    q('turn4','turning','It is illegal to pass another vehicle:',
+      ['On a hill or curve with limited visibility','On any four-lane highway','When your headlights are on','When driving under the speed limit'],0,
+      'Passing is prohibited where you can’t see far enough ahead to do it safely, such as hills, curves, or where a no-passing zone is marked.'),
+    q('turn5','turning','When making a right turn, you should position your vehicle:',
+      ['In the lane closest to the right curb or edge','In the far left lane','Anywhere, since right turns don’t require lane position','In the center lane'],0,
+      'Approach and complete a right turn from the lane nearest the right-hand edge of the roadway, turning into the nearest available lane.'),
+    q('turn6','turning','To make a legal U-turn, you generally need:',
+      ['Clear view in both directions and no posted prohibition','Only enough space for a three-point turn','Permission from oncoming traffic by hand signal','A marked U-turn lane, always'],0,
+      'A U-turn must be legal at that location (no "No U-Turn" sign) and you must be able to see clearly enough in both directions to complete it safely.'),
+    q('turn7','turning','When two vehicles turn left from opposite directions at the same intersection, they should:',
+      ['Turn in front of each other, passing driver-side to driver-side','Wait for one another entirely before either moves','Race to complete the turn first','Turn on the outside of each other, passing side by side'],3,
+      'Left-turning vehicles from opposite approaches normally pass each other side-by-side (nearest side to nearest side), each staying in their own turn lane.'),
+    q('turn8','turning','A dashed white line between lanes moving the same direction means:',
+      ['Lane changes are prohibited','Lane changes are permitted when safe','You must merge immediately','It marks a bike lane'],1,
+      'A dashed white line allows lane changes when it is safe to do so; a solid white line discourages or prohibits changing lanes.'),
+
+    q('park1','parking','You may not park within how many feet of a fire hydrant in most jurisdictions?',
+      ['5 feet','10 feet','15 feet','25 feet'],2,
+      'A common minimum is 15 feet from a fire hydrant, though local signage can specify a different distance — always check posted signs.'),
+    q('park2','parking','When parking uphill on a street with a curb, you should turn your front wheels:',
+      ['Toward the curb','Away from the curb','Straight ahead','It does not matter'],1,
+      'Parking uphill with a curb: turn wheels away from the curb so the car would roll back into the curb if it moved.'),
+    q('park3','parking','When parking downhill, you should turn your front wheels:',
+      ['Toward the curb','Away from the curb','Straight ahead','Fully to the left regardless of curb side'],0,
+      'Parking downhill: turn wheels toward the curb so the car rolls into the curb rather than into traffic.'),
+    q('park4','parking','Parking in a space reserved for accessible parking without a valid permit is:',
+      ['Allowed for under 15 minutes','Illegal and subject to fines','Allowed if the lot is empty','Allowed with hazard lights on'],1,
+      'Accessible parking spaces are reserved by law for vehicles displaying a valid disability permit or plate, regardless of how busy the lot is.'),
+    q('park5','parking','You should never park:',
+      ['On a hill','Directly in front of your own driveway','In a location that blocks a fire hydrant, crosswalk, or intersection sight lines','More than 12 inches from the curb'],2,
+      'Parking that blocks hydrants, crosswalks, or visibility at intersections creates a hazard and is illegal in nearly all jurisdictions.'),
+    q('park6','parking','Before exiting a parked vehicle on the traffic side of the road, you should:',
+      ['Open the door quickly to save time','Check mirrors and over your shoulder for approaching traffic or cyclists','Sound your horn','Turn on your headlights'],1,
+      'Check your mirrors and blind spot before opening a door into traffic to avoid hitting a passing vehicle or cyclist.'),
+
+    q('safe1','safety','In Missouri, the legal blood alcohol concentration (BAC) limit for drivers 21 and older is:',
+      ['0.05%','0.08%','0.10%','0.02%'],1,
+      'Like most states, Missouri sets the legal limit at 0.08% BAC for drivers 21 and older; driving above this is illegal per se.'),
+    q('safe2','safety','For drivers under 21, Missouri’s "zero tolerance" BAC limit is approximately:',
+      ['0.08%','0.02%','0.05%','There is no limit under 21'],1,
+      'Zero-tolerance laws set a much lower limit (commonly 0.02%) for drivers under 21, since any measurable alcohol can trigger a violation.'),
+    q('safe3','safety','Missouri’s "Move Over" law requires drivers to:',
+      ['Ignore stopped emergency or work vehicles on the shoulder','Slow down and move over a lane (when safe) for stopped emergency, tow, or highway maintenance vehicles','Only move over for police cars','Stop completely on the highway'],1,
+      'When approaching a stopped emergency, tow, or maintenance vehicle with lights flashing, move over a lane if possible, or slow down significantly if you can’t.'),
+    q('safe4','safety','Missouri law generally requires seat belts to be worn by:',
+      ['The driver only','Front-seat occupants, and all occupants under 18 regardless of seating position','Only passengers in the back seat','No one — belts are optional'],1,
+      'Missouri requires drivers and front-seat passengers to buckle up, and requires occupants under 18 to wear a seat belt in any seating position.'),
+    q('safe5','safety','Missouri requires drivers to carry proof of which of the following?',
+      ['Vehicle financial responsibility (liability insurance)','A recent oil change receipt','A passport','A AAA membership card'],0,
+      'Missouri requires drivers to maintain and be able to show proof of financial responsibility, typically liability insurance, for their vehicle.'),
+    q('safe6','safety','Under Missouri’s hands-free driving law, drivers are generally prohibited from:',
+      ['Talking to passengers','Holding and operating a phone while driving','Using a GPS mounted on the dashboard','Listening to the radio'],1,
+      'Missouri’s hands-free law restricts holding or manually operating a phone while driving; hands-free use is generally still allowed. Always check the current Driver Guide, since distracted-driving rules are updated periodically.'),
+    q('safe7','safety','If you are involved in a crash causing injury, death, or significant property damage, you must:',
+      ['Leave the scene quickly to avoid traffic','Stop and report it as required by law','Only stop if you caused the crash','Wait for a witness to call police before doing anything'],1,
+      'Missouri law requires drivers involved in a qualifying crash to stop at the scene, render aid if needed, exchange information, and report the crash as required.'),
+    q('safe8','safety','Headlights are generally required to be turned on:',
+      ['Only when it is completely dark','From a half hour after sunset to a half hour before sunrise, and any time visibility is poor','Only on highways','Only when other cars have their lights on'],1,
+      'Most states, including Missouri, require headlights from about a half hour after sunset to a half hour before sunrise, plus any time rain, fog, or low light reduces visibility.'),
+    q('safe9','safety','A driver’s license can be suspended or revoked for:',
+      ['Accumulating too many points from traffic convictions','Having a clean driving record','Renewing early','Driving a newer vehicle'],0,
+      'Missouri uses a point system; too many points within a set period from moving violations can lead to suspension or revocation.'),
+    q('safe10','safety','When merging onto a highway from an on-ramp, you should:',
+      ['Stop at the end of the ramp and wait for a large gap','Match the speed of highway traffic and merge into a gap safely','Merge immediately at ramp speed regardless of traffic','Force your way in using your horn'],1,
+      'Use the ramp to accelerate to the flow of highway traffic, then merge into an available gap smoothly rather than stopping or forcing your way in.'),
+    q('safe11','safety','Texting while driving in Missouri is:',
+      ['Legal for all drivers','Restricted, with specific rules that have tightened over time — check the current Driver Guide for exact requirements','Only illegal for commercial trucks','Only illegal at night'],1,
+      'Missouri’s texting and phone-use restrictions have changed over recent years and vary by driver age and vehicle type — always confirm the current rule in the official Driver Guide rather than assuming an old rule still applies.'),
+    q('safe12','safety','Driving with a suspended license in Missouri is:',
+      ['A minor infraction with no real consequence','A serious offense that can lead to fines, further suspension, or jail time','Allowed if it’s an emergency','Only enforced for repeat offenders'],1,
+      'Driving on a suspended or revoked license is a real offense in Missouri and can carry significant fines, additional license penalties, or jail time.'),
+
+    q('share1','sharing','When approaching a cyclist riding on the road, you should:',
+      ['Pass closely to save time','Give the cyclist a safe amount of clearance when passing','Honk continuously until they move','Drive directly behind them at the same speed'],1,
+      'Give cyclists a reasonable, safe passing distance (many states specify at least 3 feet) and avoid crowding them into the shoulder.'),
+    q('share2','sharing','Motorcycles are entitled to:',
+      ['A partial lane, sharing full width with cars', 'The full width of a single lane, the same as any other vehicle','No dedicated lane space at all','Only the shoulder'],1,
+      'A motorcycle is entitled to a full lane, just like any other vehicle — other drivers should not try to share the lane alongside one.'),
+    q('share3','sharing','When you see a large truck with limited visibility (a "no-zone") near its sides and rear, you should:',
+      ['Drive in that space as long as possible','Avoid lingering in the truck’s blind spots','Assume the driver can always see you','Tailgate closely to reduce your own blind spot'],1,
+      'Large trucks have significant blind spots ("no-zones") on both sides and behind. Pass promptly and avoid lingering where the driver can’t see you.'),
+    q('share4','sharing','At a crosswalk with a pedestrian signal showing a flashing "hand," pedestrians already in the crosswalk should:',
+      ['Stop where they are and wait','Finish crossing to the far side','Run back to where they started','Sit down until it changes'],1,
+      'A flashing hand means the crossing time is ending soon — pedestrians already in the crosswalk should continue to the other side, not stop or reverse.'),
+    q('share5','sharing','When following a motorcycle, you should leave:',
+      ['Less following distance than for a car, since motorcycles are smaller','At least the same following distance as you would for a car','No specific distance is needed','Only half a car length'],1,
+      'Motorcycles can stop suddenly and are harder to see — leave at least a full car-length following distance, the same as you would for a car.'),
+    q('share6','sharing','If a large truck is signaling and beginning to make a wide right turn, you should:',
+      ['Try to squeeze past on the right','Hold back and give it room — trucks often swing wide before turning right','Pass quickly on the left before it turns','Honk and drive alongside it'],1,
+      'Large trucks often swing left before a right turn to manage their trailer’s path. Never try to pass on the right when a truck is signaling a right turn.'),
+    q('share7','sharing','When you see a visually impaired pedestrian carrying a white cane or using a guide dog, drivers must:',
+      ['Proceed as normal','Yield the right-of-way','Honk to alert them','Only yield at marked crosswalks'],1,
+      'Drivers are required to yield the right-of-way to a pedestrian using a white cane or guide dog, regardless of the specific location.'),
+    q('share8','sharing','Sharing the road with farm equipment (common on Missouri rural roads) requires drivers to:',
+      ['Pass immediately regardless of visibility','Be patient, only pass when it is clearly legal and safe, and expect slow speeds','Tailgate to encourage the equipment to pull over','Assume farm equipment will always pull off the road'],1,
+      'Farm equipment moves slowly and may be wide; only pass in a legal passing zone with a clear, safe view ahead, and expect it to take time.'),
+    q('share9','sharing','When a bus is stopped ahead loading or unloading passengers (not a school bus), drivers should:',
+      ['Always come to a complete stop regardless of the situation','Proceed with caution, watching for pedestrians entering the roadway','Pass quickly to avoid delay','Only slow down if the bus signals'],1,
+      'For regular transit buses, drivers should slow and watch carefully for people crossing near the bus, even though the stop-for-school-bus law doesn’t apply.'),
+    q('share10','sharing','If your vehicle and a bicycle are both approaching an intersection and the cyclist arrived first, right-of-way belongs to:',
+      ['The car, since it is bigger','The cyclist, who is treated as any other vehicle operator on the road','Whoever is turning','Neither — both must stop and wait'],1,
+      'Bicycles are legally treated as vehicles on most roads; normal right-of-way rules for order of arrival apply the same as they would between two cars.'),
+
+    q('gen1','general','To legally operate a vehicle in Missouri, a driver must carry:',
+      ['A valid driver license and proof of insurance','Only a valid driver license','Only proof of insurance','No documents are required if driving locally'],0,
+      'Drivers should be able to produce a valid license and proof of financial responsibility (insurance) if requested by law enforcement.'),
+    q('gen2','general','If your vehicle breaks down on a highway, you should:',
+      ['Stay in your travel lane with hazards on','Move as far onto the shoulder as possible and turn on hazard lights','Get out and stand behind the vehicle','Wave down other drivers for help immediately'],1,
+      'Get the vehicle fully off the roadway if possible, turn on hazard lights, and stay clear of moving traffic while waiting for help.'),
+    q('gen3','general','A driver’s field of vision and reaction time are most negatively affected by:',
+      ['Alcohol, fatigue, and distraction','Wearing sunglasses on a sunny day','Using cruise control on a highway','Listening to music at a low volume'],0,
+      'Alcohol, drowsiness, and distraction (like phone use) all slow reaction time and narrow attention — a major cause of crashes.'),
+    q('gen4','general','When driving through a work zone, the fine for a moving violation is often:',
+      ['Reduced compared to normal','Doubled or otherwise increased','Waived entirely','The same regardless of the violation'],1,
+      'Many states, including Missouri, increase fines for violations committed in active highway work zones to protect road crews.'),
+    q('gen5','general','If you are being tailgated, the safest response is generally to:',
+      ['Brake suddenly to warn the driver behind you','Increase your own following distance and let the tailgater pass when possible','Speed up to lose the tailgater','Swerve to block them'],1,
+      'Give yourself extra space ahead and let the tailgating driver pass when it’s safe, rather than braking suddenly or engaging with them.'),
+    q('gen6','general','Driving with worn tires in wet conditions primarily increases the risk of:',
+      ['Better fuel economy','Hydroplaning and longer stopping distances','Improved traction','Lower insurance premiums'],1,
+      'Worn tread reduces a tire’s ability to channel water away, increasing hydroplaning risk and extending stopping distance on wet roads.'),
+    q('gen7','general','Before starting a trip, a responsible driver should check:',
+      ['Mirrors, seat position, and that all passengers are buckled','Only the fuel gauge','Nothing — modern cars require no pre-trip checks','Only the radio station'],0,
+      'A quick pre-trip check — mirrors, seat/wheel position, and seat belts for everyone — takes seconds and meaningfully reduces risk.'),
+    q('gen8','general','A vehicle’s total stopping distance includes:',
+      ['Only the distance while braking','Perception distance, reaction distance, and braking distance combined','Only how far you travel before you notice a hazard','Only the vehicle’s top speed'],1,
+      'Total stopping distance is the sum of perception time, reaction time, and the actual braking distance — all three add up as your speed increases.')
+  ];
+
+  var QUESTION_INDEX = {};
+  QUESTIONS.forEach(function(qq){ QUESTION_INDEX[qq.id]=qq; });
+
+  function catName(id){
+    var c = CATEGORIES.filter(function(c){return c.id===id;})[0];
+    return c ? c.name : id;
+  }
+
+  /* ============ persistence ============ */
+  var STORE_KEY = 'mo_driving_quiz_v1';
+  function loadStore(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return {history:[], stats:{}};
+      var parsed = JSON.parse(raw);
+      return {history: parsed.history||[], stats: parsed.stats||{}};
+    }catch(e){ return {history:[], stats:{}}; }
+  }
+  function saveStore(store){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }catch(e){}
+  }
+  var store = loadStore();
+
+  function recordAnswer(questionId, correct){
+    if(!store.stats[questionId]) store.stats[questionId] = {correct:0, wrong:0};
+    if(correct) store.stats[questionId].correct++; else store.stats[questionId].wrong++;
+    saveStore(store);
+  }
+  function recordAttempt(mode, label, score, total){
+    store.history.unshift({date: new Date().toISOString(), mode:mode, label:label, score:score, total:total});
+    store.history = store.history.slice(0,50);
+    saveStore(store);
+  }
+
+  /* ============ view engine ============ */
+  var app = document.getElementById('app');
+  var backBtn = document.getElementById('back-btn');
+  var headerTitle = document.getElementById('header-title');
+  backBtn.addEventListener('click', function(){ render('home'); });
+
+  function el(tag, attrs, children){
+    var e = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function(k){
+      if(k==='html'){ e.innerHTML = attrs[k]; }
+      else if(k==='class'){ e.className = attrs[k]; }
+      else if(k.indexOf('on')===0 && typeof attrs[k]==='function'){ e.addEventListener(k.slice(2), attrs[k]); }
+      else { e.setAttribute(k, attrs[k]); }
+    });
+    (children||[]).forEach(function(c){
+      if(c==null) return;
+      if(typeof c === 'string') e.appendChild(document.createTextNode(c));
+      else e.appendChild(c);
+    });
+    return e;
+  }
+  function shuffle(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t=a[i]; a[i]=a[j]; a[j]=t;
+    }
+    return a;
+  }
+
+  function setHeader(title, showBack){
+    headerTitle.textContent = title;
+    backBtn.hidden = !showBack;
+  }
+
+  function render(view, params){
+    app.innerHTML = '';
+    params = params || {};
+    if(view==='home') renderHome();
+    else if(view==='categories') renderCategoryPicker();
+    else if(view==='quiz') renderQuizStart(params.pool, params.mode, params.label);
+    else if(view==='signlearn') renderSignTabs('learn');
+    else if(view==='signtest') renderSignTabs('test');
+    else if(view==='progress') renderProgress();
+    window.scrollTo(0,0);
+  }
+
+  /* ---- home ---- */
+  function renderHome(){
+    setHeader('Missouri Driving Theory', false);
+    var hero = el('div',{class:'hero'},[
+      el('div',{class:'eyebrow'},['Unofficial practice material']),
+      el('h2',{},['Study smarter for your Missouri written exam with Jogliko']),
+      el('p',{},['Work through road-rule questions and every common highway sign, track your accuracy by topic, and see exactly where to focus before test day.'])
+    ]);
+
+    var cards = el('div',{class:'mode-grid'},[
+      el('button',{class:'mode-card', onclick:function(){ render('quiz',{pool:'random', mode:'random', label:'Random Quiz'}); }},[
+        el('span',{class:'badge'},['?']),
+        el('span',{class:'desc'},['20 random questions pulled from every topic, scored at the end — like the real test.']),
+        el('h3',{},['Random Quiz'])
+      ]),
+      el('button',{class:'mode-card', onclick:function(){ render('categories'); }},[
+        el('span',{class:'badge'},['≡']),
+        el('span',{class:'desc'},['Drill one topic at a time: right-of-way, speed, parking, Missouri-specific laws, and more.']),
+        el('h3',{},['Study by Category'])
+      ]),
+      el('button',{class:'mode-card', onclick:function(){ render('signlearn'); }},[
+        el('span',{class:'badge'},['△']),
+        el('span',{class:'desc'},['Learn every common road sign, then test yourself on shape, color, and meaning.']),
+        el('h3',{},['Sign Quiz'])
+      ]),
+      el('button',{class:'mode-card', onclick:function(){ render('progress'); }},[
+        el('span',{class:'badge'},['%']),
+        el('span',{class:'desc'},['See your accuracy by category and your recent quiz history.']),
+        el('h3',{},['Your Progress'])
+      ])
+    ]);
+
+    var disclaimer = el('div',{class:'disclaimer'},[
+      el('p',{},[el('strong',{},['This is independent study material, not an official Missouri Department of Revenue product.']),
+        ' Questions cover general rules of the road and common Missouri laws for practice purposes. Always confirm current requirements in the official Missouri Driver Guide before your exam.'])
+    ]);
+
+    app.appendChild(hero);
+    app.appendChild(cards);
+    app.appendChild(disclaimer);
+  }
+
+  /* ---- category picker ---- */
+  function categoryStats(catId){
+    var qs = QUESTIONS.filter(function(q){return q.cat===catId;});
+    var correct=0, total=0;
+    qs.forEach(function(q){
+      var s = store.stats[q.id];
+      if(s){ correct += s.correct; total += s.correct+s.wrong; }
+    });
+    return {count: qs.length, acc: total>0 ? Math.round(100*correct/total) : null};
+  }
+
+  function renderCategoryPicker(){
+    setHeader('Study by Category', true);
+    var wrap = el('div',{},[
+      el('div',{class:'hero'},[
+        el('div',{class:'eyebrow'},['Study by category']),
+        el('h2',{style:'font-size:26px'},['Pick a topic to drill'])
+      ])
+    ]);
+    var list = el('ul',{class:'cat-list'});
+    CATEGORIES.forEach(function(c){
+      var st = categoryStats(c.id);
+      var row = el('button',{class:'cat-row', onclick:(function(cat,name){ return function(){ render('quiz',{pool:cat, mode:'category', label:name}); }; })(c.id, c.name)},[
+        el('span',{class:'swatch'}),
+        el('span',{class:'cat-name'},[c.name]),
+        el('span',{class:'cat-count'},[st.count+' questions']),
+        el('span',{class:'cat-acc'},[st.acc==null ? '—' : st.acc+'%'])
+      ]);
+      list.appendChild(el('li',{},[row]));
+    });
+    wrap.appendChild(list);
+    app.appendChild(wrap);
+  }
+
+  /* ---- quiz engine (shared by random / category / sign test) ---- */
+  function renderQuizStart(pool, mode, label){
+    var questions;
+    if(pool==='random'){
+      questions = shuffle(QUESTIONS).slice(0,20);
+    } else if(pool==='signtest'){
+      questions = shuffle(SIGNS).slice(0,20).map(signToQuestion);
+    } else {
+      questions = shuffle(QUESTIONS.filter(function(q){return q.cat===pool;}));
+    }
+    runQuiz(questions, mode, label);
+  }
+
+  function signToQuestion(sign){
+    var others = shuffle(SIGNS.filter(function(s){return s.id!==sign.id;})).slice(0,3);
+    var choicesRaw = shuffle([sign].concat(others));
+    var correctIdx = choicesRaw.indexOf(sign);
+    return {
+      id: 'sign-'+sign.id,
+      cat: 'Road Signs',
+      art: sign.art,
+      text: 'What does this sign mean?',
+      choices: choicesRaw.map(function(s){ return s.name; }),
+      correct: correctIdx,
+      explain: sign.meaning
+    };
+  }
+
+  function runQuiz(questions, mode, label){
+    setHeader(label, true);
+    var state = { i:0, score:0, answered:false, total: questions.length };
+
+    function renderQuestion(){
+      state.answered = false;
+      app.innerHTML = '';
+      var quizWrap = el('div',{class:'quiz-wrap'});
+
+      var track = el('div',{class:'progress-track'});
+      for(var s=0;s<state.total;s++){
+        var cls='progress-seg'+(s<state.i?' done':(s===state.i?' current':''));
+        track.appendChild(el('div',{class:cls}));
+      }
+      quizWrap.appendChild(track);
+
+      var cur = questions[state.i];
+      var meta = el('div',{class:'quiz-meta'},[
+        el('span',{class:'qnum'},['Question '+(state.i+1)+' of '+state.total]),
+        el('span',{class:'qcat'},[typeof cur.cat==='string' && cur.cat==='Road Signs' ? 'Road Signs' : catName(cur.cat)])
+      ]);
+      quizWrap.appendChild(meta);
+
+      var card = el('div',{class:'question-card'});
+      if(cur.art){
+        card.appendChild(el('div',{class:'sign-stage', html: cur.art}));
+      }
+      card.appendChild(el('h2',{},[cur.text]));
+
+      var list = el('ul',{class:'choices'});
+      var keys = ['A','B','C','D'];
+      cur.choices.forEach(function(choice, idx){
+        var btn = el('button',{class:'choice-btn'},[
+          el('span',{class:'key'},[keys[idx]+'.']),
+          el('span',{class:'choice-text'},[choice]),
+          el('span',{class:'mark'})
+        ]);
+        btn.addEventListener('click', function(){ selectAnswer(idx); });
+        list.appendChild(el('li',{},[btn]));
+      });
+      card.appendChild(list);
+
+      var explainHolder = el('div',{id:'explain-holder'});
+      card.appendChild(explainHolder);
+
+      var actions = el('div',{class:'quiz-actions'});
+      card.appendChild(actions);
+
+      quizWrap.appendChild(card);
+      app.appendChild(quizWrap);
+
+      function selectAnswer(idx){
+        if(state.answered) return;
+        state.answered = true;
+        var buttons = list.querySelectorAll('.choice-btn');
+        buttons.forEach(function(b,i){
+          b.disabled = true;
+          var mark = b.querySelector('.mark');
+          if(i===cur.correct){ b.classList.add('correct'); mark.textContent='✓'; }
+          else if(i===idx){ b.classList.add('incorrect'); mark.textContent='✕'; }
+        });
+        var isCorrect = idx===cur.correct;
+        if(isCorrect) state.score++;
+        recordAnswer(cur.id, isCorrect);
+        var box = el('div',{class:'explain '+(isCorrect?'go':'stop')},[
+          el('span',{class:'label'},[isCorrect ? 'Correct' : 'Not quite']),
+          el('span',{},[cur.explain])
+        ]);
+        explainHolder.appendChild(box);
+
+        var nextBtn = el('button',{class:'primary-btn'},[state.i+1<state.total ? 'Next Question' : 'See Results']);
+        nextBtn.addEventListener('click', function(){
+          state.i++;
+          if(state.i<state.total){ renderQuestion(); }
+          else { finishQuiz(); }
+        });
+        actions.appendChild(nextBtn);
+      }
+    }
+
+    function finishQuiz(){
+      recordAttempt(mode, label, state.score, state.total);
+      app.innerHTML = '';
+      var pct = Math.round(100*state.score/state.total);
+      var card = el('div',{class:'panel results-card'},[
+        el('div',{class:'eyebrow'},[label+' — complete']),
+        el('div',{class:'score-big'},[state.score+' / '+state.total, el('small',{},['  '+pct+'%'])]),
+        el('p',{style:'color:var(--ink-soft); margin-top:14px;'},[
+          pct>=85 ? 'Strong result — you’re close to test-ready on this set.' :
+          pct>=70 ? 'Solid progress. Review the missed topics and try again.' :
+          'Keep practicing this set — review the explanations and retry.'
+        ]),
+        el('div',{class:'results-actions'},[
+          el('button',{class:'primary-btn', onclick:function(){ runQuiz(shuffle(questions), mode, label); }},['Retry This Set']),
+          el('button',{class:'ghost-btn', onclick:function(){ render('home'); }},['Back to Home'])
+        ])
+      ]);
+      app.appendChild(card);
+    }
+
+    renderQuestion();
+  }
+
+  /* ---- sign learn / test tabs ---- */
+  function renderSignTabs(active){
+    setHeader('Sign Quiz', true);
+    var wrap = el('div',{});
+    var hero = el('div',{class:'hero'},[
+      el('div',{class:'eyebrow'},['Road signs']),
+      el('h2',{style:'font-size:26px'},['Learn it, then get tested']),
+      el('p',{},['Browse every common regulatory, warning, construction, and guide sign, then switch to Test mode to check what you remember.'])
+    ]);
+    wrap.appendChild(hero);
+
+    var tabs = el('div',{class:'tabbar'},[
+      el('button',{class:'tab-btn'+(active==='learn'?' active':''), onclick:function(){ render('signlearn'); }},['Learn Signs']),
+      el('button',{class:'tab-btn'+(active==='test'?' active':''), onclick:function(){ render('quiz',{pool:'signtest', mode:'signs', label:'Sign Quiz'}); }},['Test Me'])
+    ]);
+    wrap.appendChild(tabs);
+
+    if(active==='learn'){
+      var grid = el('div',{class:'sign-grid'});
+      var detail = el('div',{class:'panel sign-detail'});
+      function showDetail(sign){
+        detail.innerHTML='';
+        detail.appendChild(el('div',{class:'sign-detail-head'},[
+          el('div',{html: sign.art}),
+          el('div',{},[
+            el('span',{class:'cat-pill'},[sign.cat]),
+            el('h3',{},[sign.name])
+          ])
+        ]));
+        detail.appendChild(el('p',{},[sign.meaning]));
+      }
+      SIGNS.forEach(function(sign, idx){
+        var tile = el('button',{class:'sign-tile', onclick:function(){ showDetail(sign); }},[
+          el('div',{html: sign.art}),
+          el('div',{class:'sign-name'},[sign.name])
+        ]);
+        grid.appendChild(tile);
+        if(idx===0) showDetail(sign);
+      });
+      wrap.appendChild(grid);
+      wrap.appendChild(detail);
+    }
+
+    app.appendChild(wrap);
+  }
+
+  /* ---- progress ---- */
+  function overallStats(){
+    var correct=0, total=0;
+    Object.keys(store.stats).forEach(function(id){
+      var s = store.stats[id];
+      correct += s.correct; total += s.correct+s.wrong;
+    });
+    return {correct:correct, total:total, acc: total>0 ? Math.round(100*correct/total) : null};
+  }
+
+  function renderProgress(){
+    setHeader('Your Progress', true);
+    var wrap = el('div',{});
+    wrap.appendChild(el('div',{class:'hero'},[
+      el('div',{class:'eyebrow'},['Progress']),
+      el('h2',{style:'font-size:26px'},['How you’re tracking'])
+    ]));
+
+    var overall = overallStats();
+    var stats = el('div',{class:'stat-row'},[
+      el('div',{class:'stat-card'},[el('div',{class:'stat-label'},['Quiz attempts']), el('div',{class:'stat-value'},[String(store.history.length)])]),
+      el('div',{class:'stat-card'},[el('div',{class:'stat-label'},['Questions answered']), el('div',{class:'stat-value'},[String(overall.total)])]),
+      el('div',{class:'stat-card'},[el('div',{class:'stat-label'},['Overall accuracy']), el('div',{class:'stat-value'},[overall.acc==null?'—':overall.acc+'%'])])
+    ]);
+    wrap.appendChild(stats);
+
+    var meterList = el('div',{class:'meter-list'});
+    CATEGORIES.concat([{id:'__signs',name:'Road Signs'}]).forEach(function(c){
+      var qids;
+      if(c.id==='__signs') qids = SIGNS.map(function(s){return 'sign-'+s.id;});
+      else qids = QUESTIONS.filter(function(q){return q.cat===c.id;}).map(function(q){return q.id;});
+      var correct=0, total=0;
+      qids.forEach(function(id){ var s=store.stats[id]; if(s){correct+=s.correct; total+=s.correct+s.wrong;} });
+      var pct = total>0 ? Math.round(100*correct/total) : 0;
+      var row = el('div',{class:'meter-row'},[
+        el('div',{class:'meter-top'},[el('span',{},[c.name]), el('span',{class:'pct'},[total>0 ? pct+'%' : 'not attempted'])]),
+        el('div',{class:'meter-track'},[el('div',{class:'meter-fill', style:'width:'+pct+'%'})])
+      ]);
+      meterList.appendChild(row);
+    });
+    wrap.appendChild(meterList);
+
+    var histWrap = el('div',{class:'history-wrap'});
+    if(store.history.length===0){
+      histWrap.appendChild(el('p',{class:'empty-note'},['No quizzes taken yet — finish one to see your history here.']));
+    } else {
+      var table = el('table',{class:'history'});
+      var thead = el('thead',{},[el('tr',{},[
+        el('th',{},['Date']), el('th',{},['Mode']), el('th',{},['Score']), el('th',{},['%'])
+      ])]);
+      var tbody = el('tbody');
+      store.history.forEach(function(h){
+        var d = new Date(h.date);
+        var dateStr = (d.getMonth()+1)+'/'+d.getDate()+'/'+String(d.getFullYear()).slice(2)+' '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        var pct = Math.round(100*h.score/h.total);
+        tbody.appendChild(el('tr',{},[
+          el('td',{},[dateStr]),
+          el('td',{},[h.label]),
+          el('td',{},[h.score+'/'+h.total]),
+          el('td',{},[pct+'%'])
+        ]));
+      });
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      histWrap.appendChild(table);
+    }
+    wrap.appendChild(histWrap);
+
+    var resetRow = el('div',{class:'reset-row'},[
+      el('button',{class:'danger-btn', onclick:function(){
+        if(confirm('Clear all saved quiz history and stats? This cannot be undone.')){
+          store = {history:[], stats:{}};
+          saveStore(store);
+          renderProgress();
+        }
+      }},['Reset Progress'])
+    ]);
+    wrap.appendChild(resetRow);
+
+    app.appendChild(wrap);
+  }
+
+  render('home');
+})();
+</script>
